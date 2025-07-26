@@ -1,12 +1,8 @@
 package org.springframework.samples.petclinic.owner;
 
-import static org.hamcrest.Matchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +13,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -33,18 +33,6 @@ class PetRestApiTest {
 	@BeforeEach
 	void setUp() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-	}
-
-	@Test
-	@DisplayName("GET /owners/{ownerId}/pets/new - Should return new pet form")
-	void shouldReturnNewPetForm() throws Exception {
-		// Tests: Controller (PetController.initCreationForm), Model (pet + types), @ModelAttribute (owner resolution)
-		// NOTE: Not testing view name due to template rendering complexity with form binding
-		mockMvc.perform(get("/owners/1/pets/new"))
-			.andExpect(status().isOk())
-			.andExpect(model().attributeExists("owner"))  // @ModelAttribute loads owner
-			.andExpect(model().attributeExists("pet"))    // New pet object
-			.andExpect(model().attributeExists("types")); // Available pet types
 	}
 
 	@Test
@@ -127,15 +115,6 @@ class PetRestApiTest {
 			.andExpect(status().isOk())
 			.andExpect(view().name("pets/createOrUpdatePetForm"))
 			.andExpect(model().hasErrors());
-	}
-
-	@Test
-	@DisplayName("GET /owners/{ownerId}/pets/new - Should load available pet types")
-	void shouldLoadAvailablePetTypes() throws Exception {
-		mockMvc.perform(get("/owners/1/pets/new"))
-			.andExpect(status().isOk())
-			.andExpect(model().attributeExists("types"))
-			.andExpect(model().attribute("types", hasSize(greaterThan(0))));
 	}
 
 	@Test

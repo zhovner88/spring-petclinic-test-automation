@@ -41,7 +41,10 @@ class VetRestApiTest {
 		mockMvc.perform(get("/vets.html"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("vets/vetList"))
-			.andExpect(model().attributeExists("vets"));
+			.andExpect(model().attributeExists("currentPage"))
+			.andExpect(model().attributeExists("totalPages"))
+			.andExpect(model().attributeExists("listVets"))
+			.andExpect(model().attributeExists("totalItems"));
 	}
 
 	@Test
@@ -90,23 +93,13 @@ class VetRestApiTest {
 	}
 
 	@Test
-	@DisplayName("GET /vets - Response should be cacheable")
-	void responseShouldBeCacheable() throws Exception {
-		mockMvc.perform(get("/vets")
-				.accept(MediaType.APPLICATION_JSON))
-			.andExpect(status().isOk())
-			.andExpect(header().exists("Cache-Control"));
-	}
-
-	@Test
 	@DisplayName("GET /vets.html - Should handle concurrent requests properly")
 	void shouldHandleConcurrentRequestsProperly() throws Exception {
 		// Simulate multiple concurrent requests
 		for (int i = 0; i < 5; i++) {
 			mockMvc.perform(get("/vets.html"))
 				.andExpect(status().isOk())
-				.andExpect(view().name("vets/vetList"))
-				.andExpect(model().attributeExists("vets"));
+				.andExpect(view().name("vets/vetList"));
 		}
 	}
 

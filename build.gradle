@@ -105,6 +105,7 @@ tasks.register('apiTests', Test) {
   classpath = sourceSets.test.runtimeClasspath
   include '**/*ApiTest*'
   include '**/*RestTest*'
+  include '**/*ApiDebug*'
 }
 
 tasks.register('integrationTests', Test) {

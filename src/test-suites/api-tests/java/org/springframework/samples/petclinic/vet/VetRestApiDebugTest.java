@@ -17,13 +17,13 @@ import org.springframework.web.context.WebApplicationContext;
 
 /**
  * Debug Tests for Vet Controller - Diagnostic endpoint analysis:
- * 
+ *
  * MVC COMPONENTS TESTED:
  * 🎯 Controller: VetController response analysis
  * 📊 Model: Raw response content inspection
  * 🖼️  View: Content type and response format verification
  * 🔍 Debug: Response structure analysis for test development
- * 
+ *
  * PURPOSE: These tests help understand actual vs expected responses
  * when developing or debugging other vet-related API tests.
  */

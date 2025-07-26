@@ -1,9 +1,5 @@
 package org.springframework.samples.petclinic.vet;
 
-import static io.restassured.RestAssured.*;
-import static io.restassured.matcher.RestAssuredMatchers.*;
-import static org.hamcrest.Matchers.*;
-
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,8 +7,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
 
 /**
  * Vet Controller API Tests using REST Assured - Tests Veterinarian endpoints:
