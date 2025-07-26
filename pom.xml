@@ -198,7 +198,50 @@
   </dependencies>
 
   <build>
+    <!-- Add test-suites as additional source directories -->
+    <testSourceDirectory>src/test/java</testSourceDirectory>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+      </testResource>
+      <testResource>
+        <directory>src/test-suites/api-tests/resources</directory>
+      </testResource>
+      <testResource>
+        <directory>src/test-suites/integration-tests/resources</directory>
+      </testResource>
+      <testResource>
+        <directory>src/test-suites/performance-tests/resources</directory>
+      </testResource>
+      <testResource>
+        <directory>src/test-suites/e2e-tests/resources</directory>
+      </testResource>
+    </testResources>
+    
     <plugins>
+      <!-- Build Helper Plugin to add test source directories -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.6.0</version>
+        <executions>
+          <execution>
+            <id>add-test-source</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>add-test-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>src/test-suites/api-tests/java</source>
+                <source>src/test-suites/integration-tests/java</source>
+                <source>src/test-suites/performance-tests/java</source>
+                <source>src/test-suites/e2e-tests/java</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>

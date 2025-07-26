@@ -24,6 +24,23 @@ repositories {
   mavenCentral()
 }
 
+// Configure source sets to include test-suites
+sourceSets {
+  main {
+    java {
+      srcDirs = ['src/main/java']
+    }
+  }
+  test {
+    java {
+      srcDirs = ['src/test/java', 'src/test-suites/api-tests/java', 'src/test-suites/integration-tests/java', 'src/test-suites/performance-tests/java', 'src/test-suites/e2e-tests/java']
+    }
+    resources {
+      srcDirs = ['src/test/resources', 'src/test-suites/api-tests/resources', 'src/test-suites/integration-tests/resources', 'src/test-suites/performance-tests/resources', 'src/test-suites/e2e-tests/resources']
+    }
+  }
+}
+
 ext.checkstyleVersion = "10.25.0"
 ext.springJavaformatCheckstyleVersion = "0.0.46"
 ext.webjarsLocatorLiteVersion = "1.1.0"
