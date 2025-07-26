@@ -49,3 +49,36 @@ out/
 _site/
 *.css
 !petclinic.css
+
+### Testing ###
+# Test reports and outputs
+**/test-results/
+**/test-reports/
+**/surefire-reports/
+**/failsafe-reports/
+**/jacoco/
+coverage/
+allure-results/
+allure-report/
+
+# WebDriver downloads
+**/webdriver/
+chromedriver*
+geckodriver*
+edgedriver*
+
+# JMeter
+jmeter.log
+**/jmeter-results/
+
+# E2E test screenshots
+**/screenshots/
+**/test-screenshots/
+
+# Performance test artifacts
+*.jmx.log
+**/performance-results/
+
+# IDE test runner
+*.log
+.attach_pid*
