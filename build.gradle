@@ -47,17 +47,84 @@ dependencies {
   runtimeOnly 'com.mysql:mysql-connector-j'
   runtimeOnly 'org.postgresql:postgresql'
   developmentOnly 'org.springframework.boot:spring-boot-devtools'
+  
+  // Basic Testing Dependencies
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
   testImplementation 'org.springframework.boot:spring-boot-testcontainers'
   testImplementation 'org.springframework.boot:spring-boot-docker-compose'
   testImplementation 'org.testcontainers:junit-jupiter'
   testImplementation 'org.testcontainers:mysql'
+  testImplementation 'org.testcontainers:postgresql'
+  
+  // Selenium WebDriver for E2E Testing
+  testImplementation 'org.seleniumhq.selenium:selenium-java'
+  testImplementation 'org.seleniumhq.selenium:selenium-chrome-driver'
+  testImplementation 'io.github.bonigarcia:webdrivermanager:5.9.2'
+  
+  // REST API Testing
+  testImplementation 'io.rest-assured:rest-assured'
+  testImplementation 'io.rest-assured:json-schema-validator'
+  
+  // Asynchronous Testing Support
+  testImplementation 'org.awaitility:awaitility'
+  
+  // Reactive Testing Support
+  testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
+  
   checkstyle "io.spring.javaformat:spring-javaformat-checkstyle:${springJavaformatCheckstyleVersion}"
   checkstyle "com.puppycrawl.tools:checkstyle:${checkstyleVersion}"
 }
 
 tasks.named('test') {
   useJUnitPlatform()
+}
+
+// Test suite configurations for different test types
+tasks.register('apiTests', Test) {
+  description = 'Run API tests'
+  group = 'verification'
+  useJUnitPlatform()
+  testClassesDirs = sourceSets.test.output.classesDirs
+  classpath = sourceSets.test.runtimeClasspath
+  include '**/*ApiTest*'
+  include '**/*RestTest*'
+}
+
+tasks.register('integrationTests', Test) {
+  description = 'Run integration tests'
+  group = 'verification'
+  useJUnitPlatform()
+  testClassesDirs = sourceSets.test.output.classesDirs
+  classpath = sourceSets.test.runtimeClasspath
+  include '**/*IntegrationTest*'
+  include '**/*ContainerTest*'
+}
+
+tasks.register('performanceTests', Test) {
+  description = 'Run performance tests'
+  group = 'verification'
+  useJUnitPlatform()
+  testClassesDirs = sourceSets.test.output.classesDirs
+  classpath = sourceSets.test.runtimeClasspath
+  include '**/*PerformanceTest*'
+  include '**/*LoadTest*'
+}
+
+tasks.register('e2eTests', Test) {
+  description = 'Run end-to-end tests'
+  group = 'verification'
+  useJUnitPlatform()
+  testClassesDirs = sourceSets.test.output.classesDirs
+  classpath = sourceSets.test.runtimeClasspath
+  include '**/*E2ETest*'
+  include '**/*SeleniumTest*'
+  systemProperty 'webdriver.chrome.driver', System.getProperty('webdriver.chrome.driver', '')
+}
+
+tasks.register('allTests') {
+  description = 'Run all test suites'
+  group = 'verification'
+  dependsOn test, apiTests, integrationTests, performanceTests, e2eTests
 }
 
 checkstyle {
