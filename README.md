@@ -14,8 +14,8 @@ This fork includes a testing framework demonstrating Spring Boot testing best pr
 src/test-suites/
 ├── api-tests/          # REST endpoint testing
 ├── integration-tests/  # Repository & service layer tests
-├── performance-tests/  # Load & performance testing
-└── e2e-tests/         # End-to-end UI testing
+├── performance-tests/  # Load & performance testing // TODO
+└── e2e-tests/         # End-to-end UI testing // TODO
 ```
 
 ### Running Tests
