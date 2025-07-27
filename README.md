@@ -1,5 +1,39 @@
 # Spring PetClinic Sample Application [![Build Status](https://github.com/spring-projects/spring-petclinic/actions/workflows/maven-build.yml/badge.svg)](https://github.com/spring-projects/spring-petclinic/actions/workflows/maven-build.yml)[![Build Status](https://github.com/spring-projects/spring-petclinic/actions/workflows/gradle-build.yml/badge.svg)](https://github.com/spring-projects/spring-petclinic/actions/workflows/gradle-build.yml)
 
+## 🧪 Enhanced Testing Framework
+This fork includes a testing framework demonstrating Spring Boot testing best practices:
+- **API Tests**: REST endpoint testing with MockMvc and REST Assured
+- **Integration Tests**: Repository and service layer testing
+- **Performance Tests**: Load testing capabilities
+- **E2E Tests**: Full application workflow testing
+
+*Modified from the original Spring PetClinic to showcase advanced testing methodologies.*
+
+### Test Structure
+```
+src/test-suites/
+├── api-tests/          # REST endpoint testing
+├── integration-tests/  # Repository & service layer tests
+├── performance-tests/  # Load & performance testing
+└── e2e-tests/         # End-to-end UI testing
+```
+
+### Running Tests
+```bash
+# Run all tests
+./gradlew allTests
+
+# Run specific test suites
+./gradlew apiTests
+./gradlew integrationTests
+./gradlew performanceTests
+./gradlew e2eTests
+
+# Maven equivalents
+./mvnw test
+./mvnw test -Dtest="**/*ApiTest"
+```
+
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/spring-projects/spring-petclinic) [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=7517918)
 
 ## Understanding the Spring Petclinic application with a few diagrams
