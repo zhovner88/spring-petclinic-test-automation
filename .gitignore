@@ -82,3 +82,10 @@ jmeter.log
 # IDE test runner
 *.log
 .attach_pid*
+
+### AI Assistant Files ###
+# Claude Code assistant configuration
+CLAUDE.md
+.claude/
+**/claude-*
+claude-settings.json
